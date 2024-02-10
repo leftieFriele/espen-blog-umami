@@ -5,7 +5,14 @@ generator client {
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
+  directUrl    = env("DIRECT_URL")
   relationMode = "prisma"
+  extensions   = [hstore(schema: "myHstoreSchema"), pg_trgm, postgis(version: "2.1")]
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 model User {
